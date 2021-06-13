@@ -23,6 +23,7 @@
     "react-native": "0.64.2",
     "react-native-date-picker": "^3.3.0",
     "react-native-elements": "^3.3.2",
+    "react-native-flatlist-slider": "^1.0.5",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-image-crop-picker": "^0.36.0",
     "react-native-raw-bottom-sheet": "^2.2.0",

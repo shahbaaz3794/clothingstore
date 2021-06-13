@@ -25,7 +25,7 @@ const CustomDrawerContent = ({navigation}, props) => {
               size="medium"
               icon={{name: 'user', type: 'font-awesome'}}
               rounded
-              onPress={console.log('q')}
+              // onPress={console.log('q')}
               source={{
                 uri:
                   'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',

@@ -31,7 +31,7 @@ const Profile = ({navigation}) => {
       cropping: true,
       mediaType: 'photo',
     }).then(image => {
-      console.log(image);
+      // console.log(image);
       setImageSource(image.path);
       imageBSheet.current.close();
     });
@@ -45,7 +45,7 @@ const Profile = ({navigation}) => {
       cropping: true,
       mediaType: 'photo',
     }).then(image => {
-      console.log(image);
+      // console.log(image);
       setImageSource(image.path);
       imageBSheet.current.close();
     });

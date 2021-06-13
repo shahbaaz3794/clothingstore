@@ -1,14 +1,21 @@
 import React, {useState} from 'react';
 import {Text, View, TouchableOpacity} from 'react-native';
 import RBSheet from 'react-native-raw-bottom-sheet';
-import {quantity} from '../components/cartData';
+import {quantityList} from '../components/cartData';
 
-const QuantityBottomSheet = ({quantityBSheet, setQuantity}) => {
-  const [selectedQuantity, setSelectedQuantity] = useState('');
+const QuantityBottomSheet = ({
+  quantityBSheet,
+  setQuantity,
+  quantity,
+  item,
+  handleCartChanges,
+}) => {
+  const [selectedQuantity, setSelectedQuantity] = useState(quantity);
 
-  const setItemQuantity = item => {
-    setSelectedQuantity(item);
-    setQuantity(item);
+  const setItemQuantity = () => {
+    setQuantity(selectedQuantity);
+    handleCartChanges(item, selectedQuantity);
+    quantityBSheet.current.close();
   };
 
   return (
@@ -34,12 +41,12 @@ const QuantityBottomSheet = ({quantityBSheet, setQuantity}) => {
             flexDirection: 'row',
             marginTop: 15,
           }}>
-          {quantity.map((item, index) => {
+          {quantityList.map((quantityCount, index) => {
             return (
               <TouchableOpacity
                 key={index}
                 style={
-                  selectedQuantity === item
+                  selectedQuantity === quantityCount
                     ? {
                         borderRadius: 25,
                         borderColor: '#05679E',
@@ -62,14 +69,14 @@ const QuantityBottomSheet = ({quantityBSheet, setQuantity}) => {
                         marginRight: 20,
                       }
                 }
-                onPress={() => setItemQuantity(item)}>
+                onPress={() => setSelectedQuantity(quantityCount)}>
                 <Text
                   style={
-                    selectedQuantity === item
+                    selectedQuantity === quantityCount
                       ? {color: '#fff', paddingHorizontal: 10}
                       : {paddingHorizontal: 10}
                   }>
-                  {item}
+                  {quantityCount}
                 </Text>
               </TouchableOpacity>
             );
@@ -85,7 +92,7 @@ const QuantityBottomSheet = ({quantityBSheet, setQuantity}) => {
             borderRadius: 8,
             marginTop: 15,
           }}
-          onPress={() => quantityBSheet.current.close()}>
+          onPress={setItemQuantity}>
           <Text style={{color: '#fff'}}>Done</Text>
         </TouchableOpacity>
       </View>

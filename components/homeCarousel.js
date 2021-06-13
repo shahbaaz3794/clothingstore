@@ -132,7 +132,7 @@ const HomeCarousel = ({data}) => {
           <>
             <View>
               <Image
-                source={{uri: `${item.url}`}}
+                source={{uri: `${item.image}`}}
                 style={{
                   width: dimension?.width,
                   height: 250,

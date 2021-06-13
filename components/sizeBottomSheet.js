@@ -3,12 +3,12 @@ import {Text, View, TouchableOpacity} from 'react-native';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import {itemSize} from '../components/cartData';
 
-const SizeBottomSheet = ({sizeBSheet, setSize}) => {
-  const [selectedSize, setSelectedSize] = useState('');
+const SizeBottomSheet = ({sizeBSheet, setSize, size}) => {
+  const [selectedSize, setSelectedSize] = useState(size);
 
-  const setItemSize = item => {
-    setSelectedSize(item);
-    setSize(item);
+  const setItemSize = () => {
+    setSize(selectedSize);
+    sizeBSheet.current.close();
   };
 
   return (
@@ -61,7 +61,7 @@ const SizeBottomSheet = ({sizeBSheet, setSize}) => {
                         alignItems: 'center',
                       }
                 }
-                onPress={() => setItemSize(item)}>
+                onPress={() => setSelectedSize(item)}>
                 <Text
                   style={
                     selectedSize === item
@@ -84,7 +84,7 @@ const SizeBottomSheet = ({sizeBSheet, setSize}) => {
             borderRadius: 8,
             marginTop: 15,
           }}
-          onPress={()=>sizeBSheet.current.close()}>
+          onPress={setItemSize}>
           <Text style={{color: '#fff'}}>Done</Text>
         </TouchableOpacity>
       </View>

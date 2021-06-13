@@ -22,7 +22,7 @@ const EditProfile = ({
   const [fieldVal, setfieldVal] = useState(fieldValue);
   // const [date, setDate] = useState(new Date())
 
-  console.log(fieldVal, 'dddd');
+  // console.log(fieldVal, 'dddd');
 
   return (
     <>

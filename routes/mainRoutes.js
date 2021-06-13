@@ -6,6 +6,7 @@ import Login from '../pages/login';
 import SignUp from '../pages/signUp';
 import DrawerNavigation from './drawerNavigation';
 import ItemList from '../pages/itemList';
+import ItemDescription from '../pages/itemDescription';
 
 const Routes = () => {
   const Stack = createStackNavigator();
@@ -36,6 +37,11 @@ const Routes = () => {
           <Stack.Screen
             name="ItemPage"
             component={ItemList}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="ItemDescriptionPage"
+            component={ItemDescription}
             options={{headerShown: false}}
           />
         </Stack.Navigator>

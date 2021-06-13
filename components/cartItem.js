@@ -4,10 +4,9 @@ import {Image} from 'react-native-elements';
 import SizeBottomSheet from './sizeBottomSheet';
 import QuantityBottomSheet from './quantityBottomSheet';
 
-const CartItem = ({item, setCartAmount, cartAmount}) => {
+const CartItem = ({item, handleCartChanges}) => {
   const sizeBSheet = useRef();
   const quantityBSheet = useRef();
-  const itemPrice = useRef(item.price);
 
   const [size, setSize] = useState(item.itemSize);
   const [quantity, setQuantity] = useState(item.itemQuantity);
@@ -45,7 +44,7 @@ const CartItem = ({item, setCartAmount, cartAmount}) => {
                   ▼
                 </Text>
               </TouchableOpacity>
-              <SizeBottomSheet sizeBSheet={sizeBSheet} setSize={setSize} />
+              <SizeBottomSheet sizeBSheet={sizeBSheet} setSize={setSize} size={size} />
               <TouchableOpacity
                 style={{
                   flexDirection: 'row',
@@ -67,6 +66,9 @@ const CartItem = ({item, setCartAmount, cartAmount}) => {
               <QuantityBottomSheet
                 quantityBSheet={quantityBSheet}
                 setQuantity={setQuantity}
+                quantity={quantity}
+                item={item}
+                handleCartChanges={handleCartChanges}
               />
             </View>
             <Text style={{marginTop: 7}}>₹ {item.price}</Text>

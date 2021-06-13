@@ -22,7 +22,7 @@ function HomeCategoriesAvatar() {
               size="large"
               // icon={{name: 'user', type: 'font-awesome'}}
               rounded
-              onPress={console.log('view DP')}
+              // onPress={console.log('view DP')}
               source={men}
             />
           </View>
@@ -37,7 +37,7 @@ function HomeCategoriesAvatar() {
               size="large"
               icon={{name: 'user', type: 'font-awesome'}}
               rounded
-              onPress={console.log('view DP')}
+              // onPress={console.log('view DP')}
               source={women}
             />
           </View>
@@ -52,7 +52,7 @@ function HomeCategoriesAvatar() {
               size="large"
               icon={{name: 'user', type: 'font-awesome'}}
               rounded
-              onPress={console.log('view DP')}
+              // onPress={console.log('view DP')}
               source={kids}
             />
           </View>
@@ -67,7 +67,7 @@ function HomeCategoriesAvatar() {
               size="large"
               icon={{name: 'user', type: 'font-awesome'}}
               rounded
-              onPress={console.log('view DP')}
+              // onPress={console.log('view DP')}
               source={offers}
             />
           </View>
@@ -82,7 +82,7 @@ function HomeCategoriesAvatar() {
               size="large"
               icon={{name: 'user', type: 'font-awesome'}}
               rounded
-              onPress={console.log('view DP')}
+              // onPress={console.log('view DP')}
               source={newArrival}
             />
           </View>

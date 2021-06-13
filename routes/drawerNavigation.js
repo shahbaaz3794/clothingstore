@@ -5,6 +5,7 @@ import BottomNavigation from './bottomNavigation';
 import Categories from '../pages/categories';
 import MyOrders from '../pages/myOrders';
 import ContactUs from '../pages/contactUs';
+import ItemList from '../pages/itemList';
 
 const DrawerNavigation = () => {
   const Drawer = createDrawerNavigator();
