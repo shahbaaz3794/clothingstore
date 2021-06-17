@@ -21,9 +21,9 @@ const Login = ({navigation}) => {
   const userLogin = async () => {
     var {user} = await login(email, password);
     if (user) {
-      setLoader(false);
       navigation.replace('Drawer');
     }
+    setLoader(false);
   };
 
   const loginValidation = () => {

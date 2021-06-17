@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 import {ListItem} from 'react-native-elements';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -6,16 +6,29 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {Avatar} from 'react-native-elements';
 import {logout} from '../components/firebaseAuthentication';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CustomDrawerContent = ({navigation}, props) => {
   const insets = useSafeAreaInsets();
+  const [displayname, setDisplayname] = useState("");
+
+  useEffect(() => {
+    getDisplayName();
+  }, [])
 
   const userLogout = async () => {
-    var response = await logout();
-    if (response) {
+    // var response = await logout();
+    if (logout()) {
       navigation.replace('Login');
     }
   };
+
+  const getDisplayName = async() => {
+    const user = await AsyncStorage.getItem('currentUser');
+    let {displayName} = JSON.parse(user);
+    setDisplayname(displayName);
+  };
+
   return (
     <>
       <View style={{marginTop: insets.bottom, marginLeft: insets.left}}>
@@ -27,11 +40,10 @@ const CustomDrawerContent = ({navigation}, props) => {
               rounded
               // onPress={console.log('q')}
               source={{
-                uri:
-                  'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
+                uri: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
               }}
             />
-            <Text style={styles.headerText}>Shahbaaz</Text>
+            <Text style={styles.headerText}>{displayname}</Text>
           </View>
         </View>
         <ListItem

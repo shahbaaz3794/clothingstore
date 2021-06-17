@@ -24,9 +24,9 @@ const SignUp = ({navigation}) => {
     if (password === confirmPassword) {
       var {user} = await signUp(email, password, name);
       if (user) {
-        setLoader(false);
         navigation.replace('Drawer');
       }
+      setLoader(false);
     }
   };
 
