@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   View,
@@ -9,21 +9,59 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {useAppDispatch} from '../redux/store';
+import {useSelector} from 'react-redux';
+import { userLogin } from '../redux/slices/loginSlice';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {login} from '../components/firebaseAuthentication';
 
 const Login = ({navigation}) => {
+  const dispatch = useAppDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loader, setLoader] = useState(false);
 
   const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  const loginUser = useSelector(state => state.user);
+  const logState = useSelector(state => state);
 
-  const userLogin = async () => {
-    var {user} = await login(email, password);
-    if (user) {
+  console.log(logState, 'TTTTTTTT');
+
+  // const userLogin = async () => {
+  //   var {user} = await login(email, password);
+  //   if (user) {
+  //     navigation.replace('Drawer');
+  //   }
+  //   setLoader(false);
+  // };
+
+  useEffect(() => {
+    if (loginUser.isAuthenticating) {
+      setLoader(true);
+    }
+    if (loginUser.isAuthenticationFailed && loginUser.errorMsg) {
+      Alert.alert(`${loginUser.errorMsg}`, [{text: 'OK'}]);
+      setLoader(false);
+    }
+    if (loginUser.isAuthenticationSuccess) {
+      AsyncStorage.setItem('currentUser', JSON.stringify(loginUser.userData));
+      setLoader(false);
       navigation.replace('Drawer');
     }
-    setLoader(false);
+  }, [
+    loginUser.isAuthenticating,
+    loginUser.isAuthenticationFailed,
+    loginUser.isAuthenticationSuccess,
+  ]);
+
+  const handleSubmit = async () => {
+    const payload = {
+      email: email,
+      password: password,
+    };
+    if (payload) {
+      dispatch(userLogin(payload));
+    }
   };
 
   const loginValidation = () => {
@@ -34,8 +72,8 @@ const Login = ({navigation}) => {
     } else if (password === '') {
       Alert.alert("Password can't be empty", [{text: 'OK'}]);
     } else {
-      setLoader(true);
-      userLogin();
+      // setLoader(true);
+      handleSubmit();
     }
   };
 

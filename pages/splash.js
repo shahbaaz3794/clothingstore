@@ -8,12 +8,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const Splash = ({navigation}) => {
 
   useEffect(() => {
-    setTimeout(() => {
-      AsyncStorage.getItem('currentUser').then((value) =>
-        navigation.replace(
-          value === null ? 'Login' : 'Drawer'
-        ),
-      );
+    setTimeout(async() => {
+      const currentUser = await AsyncStorage.getItem('currentUser')
+      console.log(currentUser,"userrrrr")
+      if (currentUser!==null) {
+        navigation.replace('Drawer')
+      } else {
+        navigation.replace('Login')
+      }
     }, 3000);
   }, []);
 

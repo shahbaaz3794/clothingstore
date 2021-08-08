@@ -17,10 +17,13 @@ const CustomDrawerContent = ({navigation}, props) => {
   }, [])
 
   const userLogout = async () => {
-    // var response = await logout();
-    if (logout()) {
+    // const auth = await logout();
+    // console.log(auth,"FFFF");
+    // if(auth === true){
+      logout();
+      await AsyncStorage.clear();
       navigation.replace('Login');
-    }
+    // }
   };
 
   const getDisplayName = async() => {

@@ -48,31 +48,16 @@ export const signUp = async (email, password, name) => {
   }
 };
 
-export const logout = async () => {
-  auth()
-    .signOut()
-    .then(() => {
-      // Sign-out successful.
-      return true
-    })
-    .catch(error => {
-      Alert.alert(`Error signing out`, [{text: 'OK'}]);
-      // console.log(error, 'error signing out');
-    });
+export const logout = async() => {
   // try {
-  //   var response = await auth().signOut();
-  //   await AsyncStorage.removeItem('currentUser');
-  //   if (response) {
-  //     return response;
-  //   }
-  //   // console.log('signed out');
+    auth()
+      .signOut()
+      .then(() => {
+        // Sign-out successful.
+        // return true;
+      });
   // } catch (error) {
-  //   Alert.alert(
-  //     `Error signing out`,
-  //     [
-  //       { text: "OK"}
-  //     ]
-  //   );
-  //   // console.log(error, 'error signing out');
+  //   Alert.alert(`Error signing out`, [{text: 'OK'}]);
+  //   console.log(error, 'error signing out');
   // }
 };
