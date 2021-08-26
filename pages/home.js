@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StyleSheet, ScrollView, Text, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import HomeHeader from '../components/homeHeader';
@@ -7,8 +7,21 @@ import HomeCarousel from '../components/homeCarousel';
 import HomeContent from '../components/homeContent';
 import {carouselImages} from '../components/carouselData';
 import {FlatListSlider} from 'react-native-flatlist-slider';
+import {getCarouselImages} from "../redux/slices/carouselImagesSlice";
+import { useAppDispatch } from "../redux/store";
+import { useSelector } from "react-redux";
 
 const Home = ({navigation}) => {
+  const dispatch = useAppDispatch();
+
+  const result = useSelector((state) => state);
+
+  console.log(result,"redux state");
+
+  useEffect(() => {
+    dispatch(getCarouselImages());
+  }, [])
+
   return (
     <SafeAreaView>
       <HomeHeader navigation={navigation} />
