@@ -1,20 +1,44 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, ScrollView} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import HomeHeader from '../components/homeHeader';
-import {categoryData} from '../components/categoriesData';
+import {useAppDispatch} from '../redux/store';
+import {useSelector} from 'react-redux';
+import { getCategories } from "../redux/slices/categoriesSlice";
+import { getItemListData } from "../redux/slices/itemListSlice";
 
 const Categories = ({navigation}) => {
   const [catState, setCatState] = useState({});
   const [subCatState, setSubCatState] = useState({});
 
+  const dispatch = useAppDispatch();
+
+  const categoriesData = useSelector(state => state?.categories?.categoriesArray);
+
+  useEffect(() => {
+    dispatch(getCategories());
+  }, []);
+
+  const handleItem = (gender,categoryName) =>{
+    if(gender && categoryName){
+      const payload={
+        gender:gender,
+        categoryName:categoryName,
+      }
+      if(payload){
+        dispatch(getItemListData(payload));
+        navigation.navigate('ItemPage')
+      }
+    }
+  }
+
   return (
     <ScrollView>
       <SafeAreaView style={styles.categoryContainer}>
       <HomeHeader navigation={navigation} />
-        {categoryData?.map(item => {
+        {categoriesData.length > 0 && categoriesData?.map(item => {
           return (
             <>
               <TouchableOpacity
@@ -53,7 +77,7 @@ const Categories = ({navigation}) => {
                     {value?.subCategory?.map(val => {
                       return (
                         <TouchableOpacity
-                          onPress={()=>navigation.navigate('ItemPage')}
+                          onPress={()=>handleItem(item.gender,val.subCatName)}
                           style={catState[item.gender] && subCatState[value.catId]? styles.categorySubContent:styles.subCatClose}>
                           <Text style={{marginLeft: 8}}>{val.subCatName}</Text>
                         </TouchableOpacity>

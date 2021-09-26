@@ -14,7 +14,7 @@ export const getCarouselImages = createAsyncThunk(
 
 const initialState = {
   isLoading: false,
-  failed: true,
+  failed: false,
   success: false,
   imageArray: [],
 };

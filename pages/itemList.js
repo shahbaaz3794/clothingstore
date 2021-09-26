@@ -10,8 +10,8 @@ import {
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import ItemHeader from '../components/itemHeader';
-import {DATA} from '../components/wishListData';
 import ItemListItem from '../components/itemListItem';
+import {useSelector} from 'react-redux';
 
 const ItemList = ({navigation}) => {
   const [dimension, setDimension] = useState(Dimensions.get('window'));
@@ -19,6 +19,8 @@ const ItemList = ({navigation}) => {
   const onChange = () => {
     setDimension(Dimensions.get('window'));
   };
+
+  const itemListData = useSelector(state => state?.itemList?.itemListArray);
 
   useEffect(() => {
     Dimensions.addEventListener('change', onChange);
@@ -33,7 +35,7 @@ const ItemList = ({navigation}) => {
         <ItemHeader navigation={navigation} />
         {dimension.width > dimension.height ? (
           <FlatList
-            data={DATA}
+            data={itemListData}
             renderItem={({item}) => (
               <ItemListItem item={item} columns={'3'} navigation={navigation} />
             )}
@@ -43,7 +45,7 @@ const ItemList = ({navigation}) => {
           />
         ) : (
           <FlatList
-            data={DATA}
+            data={itemListData}
             renderItem={({item}) => (
               <ItemListItem item={item} columns={'2'} navigation={navigation} />
             )}

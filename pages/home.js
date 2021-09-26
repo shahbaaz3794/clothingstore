@@ -5,42 +5,43 @@ import HomeHeader from '../components/homeHeader';
 import HomeCategoriesAvatar from '../components/homeCategoriesAvatar';
 import HomeCarousel from '../components/homeCarousel';
 import HomeContent from '../components/homeContent';
-import {carouselImages} from '../components/carouselData';
 import {FlatListSlider} from 'react-native-flatlist-slider';
-import {getCarouselImages} from "../redux/slices/carouselImagesSlice";
-import { useAppDispatch } from "../redux/store";
-import { useSelector } from "react-redux";
+import {getCarouselImages} from '../redux/slices/carouselImagesSlice';
+import {useAppDispatch} from '../redux/store';
+import {useSelector} from 'react-redux';
 
 const Home = ({navigation}) => {
   const dispatch = useAppDispatch();
 
-  const result = useSelector((state) => state);
-
-  console.log(result,"redux state");
+  const carouselData = useSelector(state => state?.carouselImages?.imageArray);
 
   useEffect(() => {
     dispatch(getCarouselImages());
-  }, [])
+  }, []);
 
   return (
     <SafeAreaView>
       <HomeHeader navigation={navigation} />
       <ScrollView>
         <HomeCategoriesAvatar />
-        <FlatListSlider
-          data={carouselImages}
-          height={250}
-          autoscroll={true}
-          timer={10000}
-          loop={true}
-          onPress={item => alert(JSON.stringify(item))}
-          contentContainerStyle={{paddingBottom: 15}}
-          indicatorContainerStyle={{position: 'absolute', bottom: 0}}
-          indicatorActiveColor={'#05679E'}
-          indicatorInActiveColor={'lightblue'}
-          indicatorActiveWidth={15}
-          animation
-        />
+        {carouselData.length > 0 ? (
+          <FlatListSlider
+            data={carouselData}
+            height={250}
+            autoscroll={true}
+            timer={10000}
+            loop={true}
+            onPress={item => alert(JSON.stringify(item))}
+            contentContainerStyle={{paddingBottom: 15}}
+            indicatorContainerStyle={{position: 'absolute', bottom: 0}}
+            indicatorActiveColor={'#05679E'}
+            indicatorInActiveColor={'lightblue'}
+            indicatorActiveWidth={15}
+            animation
+          />
+        ): <View style={{height:250, backgroundColor: "lightgrey"}}>
+
+          </View>}
         {/* <HomeCarousel
           data={carouselImages}
         /> */}

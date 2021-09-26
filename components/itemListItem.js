@@ -31,7 +31,9 @@ const ItemListItem = ({item, columns, navigation}) => {
               {item.title}
             </Text>
             <Text style={{fontSize: 12, color: '#808080'}}>
-              {item.subTitle}
+              {item.subTitle.length > 25
+                ? `${item.subTitle.slice(0, 25)}...`
+                : item.subTitle}
             </Text>
             <Text style={{}}>₹{item.price}</Text>
           </View>
